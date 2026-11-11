@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: var(--font-audiowide);
+  --font-sans: var(--font-exo), system-ui, sans-serif;
+  --font-mono: var(--font-jet), monospace;
+}
+
+@theme {
+  --color-bg: #080c0f;
+  --color-ink: #f2f4f5;
+  --color-dim: #9aa3a8;
+  --color-mute: #7b858a;
+  --color-line: #161c20;
+  --color-line2: #343c41;
+  --color-red: #ea3b36;
+  --color-mint: #34d399;
+  --animate-orbit: orbit 6s linear infinite;
+  @keyframes orbit { to { stroke-dashoffset: -240; } }
+  --animate-sweep: sweep 8s linear infinite;
+  @keyframes sweep { to { transform: rotate(360deg); } }
+  --animate-bob: bob 4s ease-in-out infinite;
+  @keyframes bob { 50% { transform: translateY(-12px); } }
+  --animate-rise: rise .5s both;
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+}
+
+@keyframes fade { from { opacity: 0; } }
+
+html { background: var(--color-bg); color: var(--color-ink); }
+body {
+  overflow-x: clip;
+  font-size: 13px;
+  background-image: radial-gradient(rgb(255 255 255 / .06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  background-attachment: fixed;
+}
+::selection { background: var(--color-red); color: #fff; }
+
+.link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .4s; }
+.link:hover { background-size: 100% 1px; }
+
+.field { min-width: 0; display: flex; flex: 1 1 300px; flex-direction: column; gap: 8px; font: 10px var(--font-jet); color: var(--color-mute); }
+.field input { width: 100%; min-width: 0; border-bottom: 1px solid var(--color-line2); padding: 10px 0; font: 300 16px var(--font-exo); color: #fff; outline: none; transition: border-color .3s; }
+.field input:focus { border-color: var(--color-red); }
+.btn { border: 1px solid var(--color-red); padding: 14px 22px; font-size: 11px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; transition: background .3s; }
+.btn:hover { background: var(--color-red); }
+
+/* Brand cursor: native image cursor (no JS, no lag). Hotspot = centre of the red block. Text fields keep the caret. */
+html, a, button, label { cursor: url(/cursors/pointer.png) 14 8, auto; cursor: image-set(url(/cursors/pointer.png) 1x, url(/cursors/pointer@2x.png) 2x) 14 8, auto; }
+input, textarea { cursor: text; }
+
+main { opacity: 0; transition: opacity .7s; }
+[data-ready] main { opacity: 1; }
+[data-seen] .loader { display: none; }
+
+@media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation: none !important; transition: none !important; } }
